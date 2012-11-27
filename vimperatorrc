@@ -1,0 +1,4 @@
+set hintchars=arstdhneio
+nnoremap j 5j
+nnoremap k 5k
+nnoremap ; :
