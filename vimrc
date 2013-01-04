@@ -94,4 +94,5 @@ let g:mapleader=","
 
 map <leader>v :new ~/.vimrc<CR>
 map <leader>n :NERDTreeToggle<CR>
+map <leader>t :TlistToggle<CR>
 "}
