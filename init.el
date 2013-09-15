@@ -8,7 +8,7 @@
    (or (package-installed-p package)
        (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
            (package-install package))))
- '(evil evil-leader surround ein magit))
+ '(evil evil-leader surround ein))
 
 (tool-bar-mode nil)
 
@@ -33,8 +33,11 @@
 
 (require 'ein)
 
-;(define-key org-agenda-mode-map "j" 'evil-next-line)
-;(define-key org-agenda-mode-map "k" 'evil-previous-line)
+(add-hook 'org-agenda-mode-hook
+  (lambda () 
+    (define-key org-agenda-mode-map "j" 'evil-next-line)
+    (define-key org-agenda-mode-map "k" 'evil-previous-line)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
