@@ -2,13 +2,14 @@
 (add-to-list 'package-archives 
     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+(package-refresh-contents)
 
 (mapc
  (lambda (package)
    (or (package-installed-p package)
        (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
            (package-install package))))
- '(evil evil-leader surround ein))
+ '(evil evil-leader surround ein auctex))
 
 (tool-bar-mode nil)
 
@@ -38,15 +39,8 @@
     (define-key org-agenda-mode-map "j" 'evil-next-line)
     (define-key org-agenda-mode-map "k" 'evil-previous-line)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("c:/Users/rsl/Dropbox/doc/gtd.org"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(if (eq system-type 'darwin)
+  (setq org-agenda-files '("/Users/phil/Dropbox/doc/gtd.org")))
+
+(if (eq system-type 'windows-nt)
+  (setq org-agenda-files '("c:/Users/rsl/Dropbox/doc/gtd.org")))
