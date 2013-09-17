@@ -13,14 +13,25 @@
 
 (tool-bar-mode nil)
 
+(setq is-windows (eq system-type 'windows-nt))
+
 (defun open-init-file ()
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (if is-windows
+    (find-file "C:/Users/Phil/dotfiles/init.el")
+    (find-file "~/.emacs.d/init.el")))
+
+(defun open-org-file ()
+  (interactive)
+  (if is-windows
+    (find-file "C:/Users/Phil/Dropbox/doc/gtd.org")
+    (find-file "~/Dropbox/doc/gtd.org")))
 
 (global-evil-leader-mode t)
 (evil-leader/set-leader ",")
 (evil-leader/set-key
-  "e" (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+  "e" 'open-init-file
+  "o" 'open-org-file)
 
 (evil-mode t)
 
@@ -39,8 +50,9 @@
     (define-key org-agenda-mode-map "j" 'evil-next-line)
     (define-key org-agenda-mode-map "k" 'evil-previous-line)))
 
-(if (eq system-type 'darwin)
+(if is-windows
+  (setq org-agenda-files '("c:/Users/rsl/Dropbox/doc/gtd.org"))
   (setq org-agenda-files '("/Users/phil/Dropbox/doc/gtd.org")))
 
-(if (eq system-type 'windows-nt)
-  (setq org-agenda-files '("c:/Users/rsl/Dropbox/doc/gtd.org")))
+(if is-windows
+  (setq preview-gs-command '("c:/Program Files/gs/gs8.54/bin/gswin32c.exe")))
