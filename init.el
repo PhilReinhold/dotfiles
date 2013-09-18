@@ -18,14 +18,20 @@
 (defun open-init-file ()
   (interactive)
   (if is-windows
-    (find-file "C:/Users/Phil/dotfiles/init.el")
-    (find-file "~/.emacs.d/init.el")))
+    (if (file-exists-p "C:/Users/Phil/dotfiles/init.el")
+	(find-file "C:/Users/Phil/dotfiles/init.el")
+	(find-file "C:/Phil/code/dotfiles/init.el"))
+    (find-file "~/.emacs.d/init.el"))
+  (auto-revert-mode))
 
 (defun open-org-file ()
   (interactive)
   (if is-windows
-    (find-file "C:/Users/Phil/Dropbox/doc/gtd.org")
-    (find-file "~/Dropbox/doc/gtd.org")))
+      (if (file-exists-p "C:/Users/Phil/Dropbox/doc/gtd.org")
+	(find-file "C:/Users/Phil/Dropbox/doc/gtd.org")
+	(find-file "C:/Users/rsl/Dropbox/doc/gtd.org"))
+    (find-file "~/Dropbox/doc/gtd.org"))
+  (auto-revert-mode))
 
 (global-evil-leader-mode t)
 (evil-leader/set-leader ",")
