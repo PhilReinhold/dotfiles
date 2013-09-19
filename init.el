@@ -49,16 +49,20 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
-(require 'ein)
 
 (add-hook 'org-agenda-mode-hook
   (lambda () 
     (define-key org-agenda-mode-map "j" 'evil-next-line)
     (define-key org-agenda-mode-map "k" 'evil-previous-line)))
 
+(require 'ein)
+(require 'tex)
+
 (if is-windows
   (setq org-agenda-files '("c:/Users/rsl/Dropbox/doc/gtd.org"))
   (setq org-agenda-files '("/Users/phil/Dropbox/doc/gtd.org")))
 
 (if is-windows
-  (setq preview-gs-command '("c:/Program Files/gs/gs8.54/bin/gswin32c.exe")))
+  (setq preview-gs-command "c:/Program Files/gs/gs8.54/bin/gswin32c.exe"))
+
+(setq preview-scale-function 1.5)
