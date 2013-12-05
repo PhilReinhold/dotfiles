@@ -72,6 +72,12 @@
 (require 'ein)
 (require 'tex)
 
+(setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
+(setq exec-path (append exec-path '("/usr/texbin")))
+(setq TeX-PDF-mode t)
+(add-to-list 'TeX-view-program-list '("open" "open %o"))
+(add-to-list 'TeX-view-program-selection '(output-pdf "open"))
+
 (if is-windows
   (setq org-agenda-files '("c:/Users/rsl/Dropbox/doc/gtd.org"))
   (setq org-agenda-files '("/Users/phil/Dropbox/doc/gtd.org")))
@@ -81,7 +87,7 @@
 
 (setq preview-scale-function 1.5)
 
-" Fix Ctrl-[ as Escape
+; Fix Ctrl-[ as Escape
 (define-key evil-normal-state-map (kbd "ESC") 'evil-force-normal-state)
 (define-key evil-visual-state-map (kbd "ESC") 'evil-exit-visual-state)
 (define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
