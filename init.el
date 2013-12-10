@@ -10,14 +10,20 @@
    (or (package-installed-p package)
        (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
            (package-install package))))
- '(evil evil-leader surround ein auctex auto-complete magit))
+ '(evil evil-leader surround ein auctex auto-complete magit yasnippet))
 
 ;; Interface
 (tool-bar-mode -1)
 (ido-mode)
 (setq visible-bell 1)
 
+(yas-global-mode 1)
+
 (setq is-windows (eq system-type 'windows-nt))
+
+(if (not is-windows)
+    (add-to-list 'exec-path "/usr/local/bin")
+    (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin")))
 
 ;; File Shortcuts
 (defun open-init-file ()
