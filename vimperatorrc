@@ -1,7 +1,63 @@
-set hintchars=arstdhneio
-nnoremap j 5j
-nnoremap k 5k
-nnoremap ; :
-nnoremap J gt
-nnoremap K gT
-highlight Hint font-family: monospace; font-size: 10px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; 
+set hintchars=hjklasdf
+
+js <<EOM
+vimperator_go_tab = function(tab) {
+    console.log(tab);
+    if (tab  == null) {
+        return "";
+    }
+    var i = 0;
+    for (let t of TreeStyleTabService.getAllTabs()) {
+        i = i + 1;
+        if (t == tab) {
+            return "tabnext " + i;
+        }
+    }
+};
+
+vimperator_go_parent = function() {
+    return vimperator_go_tab(
+        TreeStyleTabService.getParentTab(
+            gBrowser.mCurrentTab
+        )
+    );
+};
+
+vimperator_go_child = function() {
+    return vimperator_go_tab(
+        TreeStyleTabService.getFirstChildTab(
+            gBrowser.mCurrentTab
+        )
+    );
+};
+
+vimperator_go_next_sibling = function() {
+    var current = gBrowser.mCurrentTab;
+    var sibling = TreeStyleTabService.getNextSiblingTab(current);
+    if (sibling == null) {
+        var parent = TreeStyleTabService.getParentTab(current);
+        sibling = TreeStyleTabService.getFirstChildTab(parent);
+    }
+    return vimperator_go_tab(sibling);
+};
+
+vimperator_go_prev_sibling = function() {
+    var current = gBrowser.mCurrentTab;
+    var sibling = TreeStyleTabService.getPreviousSiblingTab(current);
+    if (sibling == null) {
+        var parent = TreeStyleTabService.getParentTab(current);
+        sibling = TreeStyleTabService.getLastChildTab(parent);
+    }
+    return vimperator_go_tab(sibling);
+};
+EOM
+
+map , <Leader>
+noremap <C-k> :exe vimperator_go_parent()<CR>
+noremap <C-j> :exe vimperator_go_child()<CR>
+noremap <C-l> :exe vimperator_go_next_sibling()<CR>
+noremap <C-h> :exe vimperator_go_previous_sibling()<CR>
+noremap <C-w> :exe vimperator_go_previous_sibling()<CR>
+noremap <Leader>h :exe vimperator_go_previous_sibling()<CR>
+
+

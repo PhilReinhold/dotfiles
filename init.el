@@ -21,6 +21,7 @@
    color-theme
    auto-complete
    smooth-scroll
+   molokai-theme
    ))
 
 ;; Interface
@@ -28,8 +29,11 @@
 (scroll-bar-mode -1)
 (ido-mode)
 (setq visible-bell 1)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (color-theme-initialize)
-(load-theme 'molokai t)
+(load-theme 'github t)
+;;(set-face-attribute 'default nil :height 90)
+;;(set-frame-size (selected-frame) 65 65)
 
 ; Scrolling
 (setq
@@ -45,8 +49,11 @@
 (setq is-windows (eq system-type 'windows-nt))
 
 (if (not is-windows)
-    (add-to-list 'exec-path "/usr/local/bin")
-    (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin")))
+    (progn
+      (add-to-list 'exec-path "/usr/local/bin")
+      (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+      (setq mac-command-modifier 'meta)
+      (setq mac-option-modifier nil)))
 
 (if is-windows
     (if (file-exists-p "C:/Users/Phil/dotfiles/init.el")
@@ -86,7 +93,10 @@
   "h" 'open-home-dir
   "g" 'magit-status
   "Eb" 'eval-buffer
-  "Er" 'eval-region)
+  "Er" 'eval-region
+  "fm" 'flymake-mode
+  "fn" 'flymake-goto-next-error
+  "fp" 'flymake-goto-prev-error)
 
 (evil-mode t)
 (require 'surround)
@@ -111,13 +121,15 @@
   "H" 'evil-window-top
   "M" 'evil-window-middle
   "L" 'evil-window-bottom
+  "$" 'evil-end-of-line
   ",g" 'revert-buffer ; Put old bindings onto comma
   ",w" 'dired-copy-filename-as-kill
   ",G" 'dired-do-chgrp
   ",G" 'dired-do-chgrp
   ",H" 'dired-do-hardlink
   ",M" 'dired-do-chmod
-  ",L" 'dired-do-load)
+  ",L" 'dired-do-load
+  ",$" 'dired-hide-subdir)
 
 ; '*' & '#' search for symbols not words
 (setq evil-symbol-word-search t)
@@ -141,6 +153,22 @@
               ("CANCELLED" :foreground "forest green" :weight bold)
               ("PHONE" :foreground "forest green" :weight bold))))
 
+(defun my-org-screenshot ()
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (buffer-file-name)
+                  "_"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (call-process "screencapture" nil nil nil "-i" filename)
+  (insert (concat "[[" filename "]]"))
+  (org-display-inline-images))
+
+(evil-define-key 'normal 'org-mode-map ",s" 'my-org-screenshot)
+
 (add-hook 'org-agenda-mode-hook
   (lambda () 
     (define-key org-agenda-mode-map "j" 'evil-next-line)
@@ -161,7 +189,14 @@
 (add-to-list 'TeX-view-program-list '("open" "open %o"))
 (add-to-list 'TeX-view-program-selection '(output-pdf "open"))
 (setq preview-scale-function 1.5)
+(defun flymake-get-tex-args (file-name)
+  (list "latex" (list "-file-line-error-style" file-name)))
+(defun flymake-get-tex-args (file-name)
+    (list "pdflatex" (list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+(defun flymake-get-tex-args (file-name)
+    (list "pdflatex" (list "-file-line-error" "-interaction=nonstopmode" file-name)))
 
+(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 
 ;; Doc View Mode
 (add-hook
@@ -169,7 +204,7 @@
  (lambda ()
    (setq doc-view-continuous t)
 ; Downscaling in ghostscript seems to increase image quality on retina
-   (add-to-list doc-view-ghostscript-options "-dDownScaleFactor=5")))
+   (add-to-list 'doc-view-ghostscript-options "-dDownScaleFactor=5")))
 
 (if is-windows
   (setq preview-gs-command "c:/Program Files/gs/gs8.54/bin/gswin32c.exe"))
@@ -188,7 +223,7 @@
  "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
 (setq dired-use-ls-dired nil)
-(setq initial-buffer-choice "~/")
+(setq inhibit-splash-screen t)
 
 (if (not is-windows)
     (setq doc-view-resolution 200))
@@ -202,3 +237,11 @@
  '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "#66D9EF" :height 1.3))))
  '(outline-2 ((t (:inherit font-lock-variable-name-face :foreground "#F92672" :height 1.2))))
  '(outline-3 ((t (:inherit font-lock-keyword-face :foreground "#A6E22E" :height 1.1)))))
+
+;; Coq
+(add-to-list 'load-path "/usr/local/Cellar/coq/8.4pl3/lib/emacs/site-lisp")
+(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
+(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
+(load-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el")
+
+(server-start)
