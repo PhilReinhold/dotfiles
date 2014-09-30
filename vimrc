@@ -2,47 +2,78 @@
 
 " Vundle Setup {
 set nocompatible
+syntax on
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Bundle 'gmarik/Vundle.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdtree'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-distinguished'
-"Bundle 'Lokaltog/vim-powerline'
-"Bundle 'fholgado/minibufexpl.vim'
-Bundle 'taglist.vim'
-Bundle 'mattn/emmet-vim'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'tomasr/molokai'
+Plugin 'Shougo/unite.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-distinguished'
+Plugin 'majutsushi/tagbar'
+Plugin 'mattn/emmet-vim'
 Plugin 'endel/vim-github-colorscheme'
-Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
-
+Plugin 'git://git.code.sf.net/p/vim-latex/vim-latex'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tikhomirov/vim-glsl'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'edkolev/promptline.vim'
+Plugin 'tommcdo/vim-exchange'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'klen/python-mode'
 
 call vundle#end()
 filetype plugin indent on " filetype-specific indenting and plugins
 " }
 
+let g:airline_theme='luna'
+let g:airline_powerline_fonts=1
+let g:bufferline_echo = 0
+autocmd VimEnter *
+  \ let &statusline='%{bufferline#refresh_status()}'
+    \ .bufferline#get_status_string()
 
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
-syntax enable		" syntax highlight
 set background=dark
-colorscheme github
+let g:molokai_original=1
+let g:rehash256=1
+set t_Co=256
+colorscheme molokai
+
+set cursorline
+set cuc cul
+set laststatus=2
 
 set bs=2		" allow backspacing over everything in insert mode
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set autoread		" auto read when file is changed from outside
 
-set clipboard=unnamed	" yank to the system register (*) by default
+if $TMUX == ''          " yank to system register (*) by default
+    set clipboard=unnamed
+endif
 set showmatch		" Cursor shows matching ) and }
 set showmode		" Show current mode
 set wildchar=<TAB>	" start wild expansion in the command line using <TAB>
@@ -61,6 +92,15 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Auto Completion {
+set complete=.,b,u,]
+set wildmode=longest,list:longest
+set completeopt=menu,preview
+set omnifunc=syntaxcomplete#Complete
+
+let g:ycm_autoclose_preview_window_after_completion = 1
+"}
+
 " TAB setting{
 set expandtab        "replace <TAB> with spaces
 set softtabstop=4
@@ -68,24 +108,32 @@ set shiftwidth=4
 
 au FileType Makefile set noexpandtab
 au FileType markdown set textwidth=80
-"}      							
+"}
 
 " Key Bindings {
 nmap ; :
 let mapleader=","
 let g:mapleader=","
 
-map <leader>v :new ~/.vimrc<CR>
-map <leader>n :NERDTreeToggle<CR>
-map <leader>t :TlistToggle<CR>
+map <leader>v :e ~/.vimrc<CR>
+map <leader>nt :NERDTreeToggle<CR>
+map <leader>tb :TagbarToggle<CR>
+map <leader>sw :StripWhitespace<CR>
 "}
 
 " LaTeX-Suite {
 let g:tex_flavor='latex'
-" }
+"}
 
-" Powerline {
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-" }
+" UltiSnips {
+let g:UltiSnipsExpandTrigger="<C-s>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+"}
+
+autocmd FileType cpp set commentstring=//%s
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+let g:tagbar_compact = 1
