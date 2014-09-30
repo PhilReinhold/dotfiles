@@ -56,7 +56,7 @@ map , <Leader>
 noremap <C-k> :exe vimperator_go_parent()<CR>
 noremap <C-j> :exe vimperator_go_child()<CR>
 noremap <C-l> :exe vimperator_go_next_sibling()<CR>
-noremap <C-h> :exe vimperator_go_previous_sibling()<CR>
+noremap <C-h> :exe vimperator_go_prev_sibling()<CR>
 noremap <C-w> :exe vimperator_go_previous_sibling()<CR>
 noremap <Leader>h :exe vimperator_go_previous_sibling()<CR>
 
