@@ -37,9 +37,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'edkolev/promptline.vim'
 Plugin 'tommcdo/vim-exchange'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'klen/python-mode'
 
 call vundle#end()
@@ -98,7 +98,7 @@ set wildmode=longest,list:longest
 set completeopt=menu,preview
 set omnifunc=syntaxcomplete#Complete
 
-let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
 "}
 
 " TAB setting{
@@ -126,9 +126,9 @@ let g:tex_flavor='latex'
 "}
 
 " UltiSnips {
-let g:UltiSnipsExpandTrigger="<C-s>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+"let g:UltiSnipsExpandTrigger="<C-s>"
+"let g:UltiSnipsJumpForwardTrigger="<C-n>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 "}
 
 autocmd FileType cpp set commentstring=//%s
