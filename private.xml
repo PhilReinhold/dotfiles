@@ -1275,14 +1275,13 @@
 </item>
 
 <item>
-    <name> RCtrl to C-F12 </name>
+    <name> RCtrl to Ctrl-Cmd </name>
     <identifier> passthrough.private.rctrlf12 </identifier>
     <autogen>
         --KeyToKey--
-        KeyCode::CONTROL_R, ModifierFlag::CONTROL_R,
-        KeyCode::F12,
-        ModifierFlag::CONTROL_L,
-        KeyCode::CONTROL_R
+        KeyCode::CONTROL_R,
+        KeyCode::CONTROL_L,
+        ModifierFlag::COMMAND_L
     </autogen>
 </item>
 </root>

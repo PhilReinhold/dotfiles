@@ -1,6 +1,9 @@
 export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export EDITOR=vim
 
+# Brew-Cask
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 # Cabal
 export PATH="$HOME/.cabal/bin:$PATH"
 
