@@ -41,6 +41,7 @@ Plugin 'tommcdo/vim-exchange'
 "Plugin 'honza/vim-snippets'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'klen/python-mode'
+Plugin 'digitaltoad/vim-jade'
 
 call vundle#end()
 filetype plugin indent on " filetype-specific indenting and plugins
@@ -88,6 +89,7 @@ set ignorecase		" ignore case when searching
 set smartcase		" ignore case if search pattern is all lowercase,case-sensitive otherwise
 set smarttab		" insert tabs on the start of a line according to context
 set noerrorbells        " disable sound on errors
+set foldlevelstart=3
 set novisualbell
 set t_vb=
 set tm=500
@@ -103,8 +105,8 @@ set omnifunc=syntaxcomplete#Complete
 
 " TAB setting{
 set expandtab        "replace <TAB> with spaces
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=2
+set shiftwidth=2
 
 au FileType Makefile set noexpandtab
 au FileType markdown set textwidth=80
@@ -135,5 +137,17 @@ autocmd FileType cpp set commentstring=//%s
 
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{Warn: %fw #%w}]'
 let g:tagbar_compact = 1
+
+command! DiffAgainstFileOnDisk call DiffAgainstFileOnDisk()
+
+function! DiffAgainstFileOnDisk()
+  :w! /tmp/working_copy
+  exec "!diff /tmp/working_copy %"
+endfunction
+
+
+let g:pymode_lint_on_write = 0
+let g:pymode_doc = 0

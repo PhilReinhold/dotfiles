@@ -24,10 +24,10 @@ alias julia=/Applications/Julia-0.2.0.app/Contents/Resources/julia/bin/julia
 eval "$(hub alias -s)"
 
 # objectsharer
-export PYTHONPATH="$HOME/github/objectsharer"
-export PYTHONPATH="$HOME/github/dataserver"
-export PYTHONPATH="$HOME/github/vectfit_python"
-export PYTHONPATH="$HOME/github/brune_python"
+export PYTHONPATH="$HOME/github/objectsharer:$PYTHONPATH"
+export PYTHONPATH="$HOME/github/dataserver:$PYTHONPATH"
+export PYTHONPATH="$HOME/github/vectfit_python:$PYTHONPATH"
+export PYTHONPATH="$HOME/github/brune_python:$PYTHONPATH"
 
 # Ruby gems
 export GEM_HOME="$HOME/.gems"
