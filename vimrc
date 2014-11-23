@@ -151,3 +151,4 @@ endfunction
 
 let g:pymode_lint_on_write = 0
 let g:pymode_doc = 0
+set completeopt=menu
