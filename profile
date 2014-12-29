@@ -32,6 +32,11 @@ export PYTHONPATH="$HOME/code/objectsharer:$PYTHONPATH"
 export PYTHONPATH="$HOME/code/dataserver:$PYTHONPATH"
 export PYTHONPATH="$HOME/code/vectfit_python:$PYTHONPATH"
 export PYTHONPATH="$HOME/code/brune_python:$PYTHONPATH"
+export PYTHONPATH="$HOME/code/Yngwie/Python/Core:$PYTHONPATH"
+export PYTHONPATH="$HOME/code/instrumentserver:$PYTHONPATH"
+export PYTHONPATH="$HOME/code/pulseseq:$PYTHONPATH"
+export PYTHONPATH="$HOME/code/reconstruction:$PYTHONPATH"
+export PYTHONPATH="$HOME/code/fpga_dsl:$PYTHONPATH"
 
 # Ruby gems
 export GEM_HOME="$HOME/.gems"
