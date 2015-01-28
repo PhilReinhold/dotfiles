@@ -24,7 +24,7 @@ export PATH="/usr/texbin:$PATH"
 alias julia=/Applications/Julia-0.2.0.app/Contents/Resources/julia/bin/julia
 
 # git hub
-eval "$(hub alias -s)"
+# eval "$(hub alias -s)"
 
 # objectsharer
 export PYTHONPATH="$HOME/code"
@@ -36,7 +36,7 @@ export PYTHONPATH="$HOME/code/Yngwie/Python/Core:$PYTHONPATH"
 export PYTHONPATH="$HOME/code/instrumentserver:$PYTHONPATH"
 export PYTHONPATH="$HOME/code/pulseseq:$PYTHONPATH"
 export PYTHONPATH="$HOME/code/reconstruction:$PYTHONPATH"
-export PYTHONPATH="$HOME/code/fpga_dsl:$PYTHONPATH"
+export PYTHONPATH="$HOME/code/fpga_lib:$PYTHONPATH"
 
 # Ruby gems
 export GEM_HOME="$HOME/.gems"

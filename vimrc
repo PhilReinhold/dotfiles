@@ -5,8 +5,14 @@ set nocompatible
 syntax on
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if has("win32")
+  set rtp+=~/vimfiles/bundle/Vundle.vim
+  let path='~/vimfiles/bundle'
+  call vuncle#begin(path)
+else
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+endif
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
