@@ -1,0 +1,13 @@
+[init]
+	defaultBranch = main
+[alias]
+	ci = commit
+    df = diff
+    dfc = diff --cached
+[user]
+	name = Phil Reinhold
+	email = pcreinhold@gmail.com
+[pull]
+    rebase = true
+[push]
+    autoSetupRemote = true
