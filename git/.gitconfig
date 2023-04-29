@@ -4,6 +4,7 @@
 	ci = commit
     df = diff
     dfc = diff --cached
+    st = status
 [user]
 	name = Phil Reinhold
 	email = pcreinhold@gmail.com

@@ -11,6 +11,8 @@ Plug 'tomasr/molokai'
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'leafgarland/typescript-vim'
+Plug 'ziglang/zig.vim'
 
 call plug#end()
 
